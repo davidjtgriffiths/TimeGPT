@@ -1,9 +1,9 @@
 import random
 import numpy as np
-import matplotlib.pyplot as plt  # To visualize
+# import matplotlib.pyplot as plt  # To visualize
 import pandas as pd  # To read data
-from sklearn import datasets, linear_model
-from sklearn.linear_model import LinearRegression
+# from sklearn import datasets, linear_model
+# from sklearn.linear_model import LinearRegression
 from datetime import datetime
 from nixtlats import TimeGPT
 import pandas as pd
@@ -11,9 +11,9 @@ import pandas as pd
 def random_plus_minus():
     return random.choice([1, -1])
 
-def get_signal(x,y):
-    return linear_regression_gradient(x,y)
-    return random_plus_minus()
+# def get_signal(x,y):
+#     return linear_regression_gradient(x,y)
+#     return random_plus_minus()
 
 def inplay(x, now_price):
     sum=0
@@ -25,40 +25,40 @@ def inplay(x, now_price):
             # print('trades open, ',i,'account ',account_balance)
     return sum
 
-def linear_regression_gradient(x,y):
-    timestamps = pd.to_datetime(x)
-    df = pd.DataFrame({'timestamp': timestamps, 'value': y})
-    timegpt_fcst_df = timegpt.forecast(df=df, h=7, freq='15T', time_col='timestamp', target_col='value')
+# def linear_regression_gradient(x,y):
+#     timestamps = pd.to_datetime(x)
+#     df = pd.DataFrame({'timestamp': timestamps, 'value': y})
+#     timegpt_fcst_df = timegpt.forecast(df=df, h=7, freq='15T', time_col='timestamp', target_col='value')
 
-    # plt.plot(df['timestamp'], df['value'], marker='o', linestyle='-')
-    # plt.title('Price vs Timestamp')
-    # plt.xlabel('Timestamp')
-    # plt.ylabel('Price')
-    # plt.grid(True)
-    # plt.show()
+#     # plt.plot(df['timestamp'], df['value'], marker='o', linestyle='-')
+#     # plt.title('Price vs Timestamp')
+#     # plt.xlabel('Timestamp')
+#     # plt.ylabel('Price')
+#     # plt.grid(True)
+#     # plt.show()
     
-    # plt.plot(timegpt_fcst_df['timestamp'], timegpt_fcst_df['TimeGPT'], marker='o', linestyle='-')
-    # plt.title('Price vs TimeGPT')
-    # plt.xlabel('Timestamp')
-    # plt.ylabel('Price')
-    # plt.grid(True)
-    # plt.show()
+#     # plt.plot(timegpt_fcst_df['timestamp'], timegpt_fcst_df['TimeGPT'], marker='o', linestyle='-')
+#     # plt.title('Price vs TimeGPT')
+#     # plt.xlabel('Timestamp')
+#     # plt.ylabel('Price')
+#     # plt.grid(True)
+#     # plt.show()
     
 
-    print (timegpt_fcst_df)
+#     print (timegpt_fcst_df)
     
-    timegpt_fcst_df['timestamp'] = pd.to_datetime(timegpt_fcst_df['timestamp'])
-    x = (timegpt_fcst_df['timestamp'].astype(np.int64) // 10**9).to_numpy()
-    y = timegpt_fcst_df['TimeGPT'].to_numpy()
+#     timegpt_fcst_df['timestamp'] = pd.to_datetime(timegpt_fcst_df['timestamp'])
+#     x = (timegpt_fcst_df['timestamp'].astype(np.int64) // 10**9).to_numpy()
+#     y = timegpt_fcst_df['TimeGPT'].to_numpy()
     
-    print (timegpt_fcst_df)
-    print(x)
-    print(y)
-    x = x.reshape((-1, 1))
-    model = LinearRegression()
-    model.fit(x, y)
-    print(f"slope: {model.coef_}")
-    return model.coef_
+#     print (timegpt_fcst_df)
+#     print(x)
+#     print(y)
+#     x = x.reshape((-1, 1))
+#     model = LinearRegression()
+#     model.fit(x, y)
+#     print(f"slope: {model.coef_}")
+#     return model.coef_
 
 file_path = 'prices.csv'
 df_prices = pd.read_csv(file_path)
@@ -136,34 +136,34 @@ for candle_index, candle in df_prices.iterrows():
     
     # Get Signal
     signal = random_plus_minus()
-    if candle_index > 9:
+    # if candle_index > 9:
 
-        date_format = "%Y-%m-%d %H:%M:%S"
+    #     date_format = "%Y-%m-%d %H:%M:%S"
      
-        now_x = np.array([
-            datetime.strptime(df_prices.iloc[candle_index-9,0], date_format).timestamp(),
-            datetime.strptime(df_prices.iloc[candle_index-8,0], date_format).timestamp(),
-            datetime.strptime(df_prices.iloc[candle_index-7,0], date_format).timestamp(),
-            datetime.strptime(df_prices.iloc[candle_index-6,0], date_format).timestamp(),
-            datetime.strptime(df_prices.iloc[candle_index-5,0], date_format).timestamp(),
-            datetime.strptime(df_prices.iloc[candle_index-4,0], date_format).timestamp(),
-            datetime.strptime(df_prices.iloc[candle_index-3,0], date_format).timestamp(),
-            datetime.strptime(df_prices.iloc[candle_index-2,0], date_format).timestamp(),
-            datetime.strptime(df_prices.iloc[candle_index-1,0], date_format).timestamp()
-        ])
-        now_y = np.array([
-            df_prices.iloc[candle_index-9,1],
-            df_prices.iloc[candle_index-8,1],
-            df_prices.iloc[candle_index-7,1],
-            df_prices.iloc[candle_index-6,1],
-            df_prices.iloc[candle_index-5,1],
-            df_prices.iloc[candle_index-4,1],
-            df_prices.iloc[candle_index-3,1],
-            df_prices.iloc[candle_index-2,1],
-            df_prices.iloc[candle_index-1,1]
-        ])
+    #     now_x = np.array([
+    #         datetime.strptime(df_prices.iloc[candle_index-9,0], date_format).timestamp(),
+    #         datetime.strptime(df_prices.iloc[candle_index-8,0], date_format).timestamp(),
+    #         datetime.strptime(df_prices.iloc[candle_index-7,0], date_format).timestamp(),
+    #         datetime.strptime(df_prices.iloc[candle_index-6,0], date_format).timestamp(),
+    #         datetime.strptime(df_prices.iloc[candle_index-5,0], date_format).timestamp(),
+    #         datetime.strptime(df_prices.iloc[candle_index-4,0], date_format).timestamp(),
+    #         datetime.strptime(df_prices.iloc[candle_index-3,0], date_format).timestamp(),
+    #         datetime.strptime(df_prices.iloc[candle_index-2,0], date_format).timestamp(),
+    #         datetime.strptime(df_prices.iloc[candle_index-1,0], date_format).timestamp()
+    #     ])
+    #     now_y = np.array([
+    #         df_prices.iloc[candle_index-9,1],
+    #         df_prices.iloc[candle_index-8,1],
+    #         df_prices.iloc[candle_index-7,1],
+    #         df_prices.iloc[candle_index-6,1],
+    #         df_prices.iloc[candle_index-5,1],
+    #         df_prices.iloc[candle_index-4,1],
+    #         df_prices.iloc[candle_index-3,1],
+    #         df_prices.iloc[candle_index-2,1],
+    #         df_prices.iloc[candle_index-1,1]
+    #     ])
 
-        signal = get_signal(now_x,now_y)
+    signal = df_prices.iloc[candle_index]['slope']
 
     
     if (account_balance > 0 and candle_index > 9):
